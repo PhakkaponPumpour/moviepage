@@ -2,7 +2,6 @@ import { BASE_URL } from "@/utils/Const";
 import axios from "axios";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
-import { list } from "postcss";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";

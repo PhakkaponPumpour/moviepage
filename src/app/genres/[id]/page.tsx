@@ -1,4 +1,5 @@
 "use client";
+import { movie } from "@/app/discover/[id]/page";
 import Card from "@/components/Card";
 import Footer from "@/components/Footer";
 import Loading from "@/components/Loading";
@@ -7,20 +8,11 @@ import axios from "axios";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-export interface movie {
-  id: string;
-  poster_path: string;
-  title: string;
-  release_date: string;
-}
-
-export default function page() {
+export default function Genres() {
   const [title, setTitle] = useState("");
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
-  const [discover, setDiscover] = useState("");
-
   const mainRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
@@ -34,35 +26,19 @@ export default function page() {
       behavior: "smooth",
     });
     const id = params.id.toString();
-    const page = searchParams.get("page");
-    setDiscover(id);
+    const page = searchParams.get("page") || 1;
+    const genre = searchParams.get("genres");
 
-    switch (id) {
-      case "now_playing":
-        setTitle("Now Playing Movie");
-        break;
-      case "top_rated":
-        setTitle("Top Rated Movie");
-        break;
+    setTitle(`${genre} Movies`);
 
-      case "popular":
-        setTitle("Popular Movie");
-        break;
-      case "upcoming":
-        setTitle("Upcoming Movie");
-        break;
-      default:
-        setTitle("");
-        break;
-    }
     axios
-      .get(`${BASE_URL}/movie/${id}`, {
+      .get(`${BASE_URL}/discover/movie`, {
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
         },
         params: {
-          language: "en-US",
-          page: page || 1,
+          with_genres: id,
+          page: page, // Add page parameter
         },
       })
       .then((response) => {
@@ -82,7 +58,9 @@ export default function page() {
       page = `page=${currentPage + 1}`;
     }
 
-    router.push(`/discover/${discover}?${page}`);
+    router.push(
+      `/genres/${params.id}?genres=${searchParams.get("genres")}&${page}`
+    );
   };
 
   return (
@@ -92,7 +70,7 @@ export default function page() {
     scrollbar-track-primary rounded-xl relative"
       ref={mainRef}
     >
-      <h1 className="text-[24px] tracking-[2px]">{title}</h1>
+      <h1 className="text-[24px] tracking-[2px] capitalize">{title}</h1>
       {movies.length === 0 && <Loading />}
 
       {/* {MovieCard} */}
@@ -137,11 +115,3 @@ export default function page() {
     </main>
   );
 }
-
-//READ MEEEEE !!!! DONT FORGET TO DELETE
-// // Learn How to Use the TMDB API to Create a
-// Movie Page that can show  Movie Details: Information about movies, such as titles, summaries, cast, crew, and release dates.
-// TV Shows: Data about television series, including episodes, seasons, and show details. Actors and
-// Crew: Information about actors, directors, writers, and other crew members. Images and
-// Videos: Movie posters, backdrops, and video trailers. Search and
-// Discover: Search functionality for movies, TV shows, and people, as well as tools for discovering popular and trending content.
