@@ -46,7 +46,7 @@ export default function Search() {
         setMovies(response.data.results);
         setCurrentPage(response.data.page);
         setTotalPage(response.data.total_pages);
-        console.log(response);
+        // console.log(response);
       })
       .catch((error) => console.log(error));
   }, [params.id, searchParams.get("page")]);
@@ -62,8 +62,54 @@ export default function Search() {
     router.push(`/search/${search}?${page}`);
   };
   return (
-    <div>
-      <h1>Server Error</h1>
-    </div>
+    <main
+      className="bg-secondary  max-h-[calc(100vh-77px)] min-h-[calc(100vh-77px)] p-6 
+    overflow-y-scroll overflow-x-hidden scrollbar-thin scrollbar-thumb-purple-900 
+    scrollbar-track-primary rounded-xl relative"
+      ref={mainRef}
+    >
+      <h1 className="text-[24px] tracking-[2px]">{title}</h1>
+      {movies.length === 0 && <Loading />}
+
+      {/* {MovieCard} */}
+      <div className=" grid gap-5 moviesGrid place-items-center mt-8">
+        {movies.map((movie: movie) => (
+          <Card
+            key={movie.id}
+            img={movie.poster_path}
+            id={movie.id}
+            title={movie.title}
+            release_date={movie.release_date}
+          />
+        ))}
+      </div>
+      {/* {MovieCard} */}
+
+      <div className=" flex justify-center gap-16 py-16 pt-16">
+        <button
+          onClick={() => handlePageChange("prev")}
+          className={`bg-purple-800 p-2 px-8 hover:bg-purple-950 ${
+            currentPage === 1 && "hidden"
+          }`}
+        >
+          {/* {!!!! need to chang} */}
+          Prev
+          {/* {!!!! need to chang} */}
+        </button>
+        <button
+          onClick={() => handlePageChange("next")}
+          className={`bg-purple-800 p-2 px-8 rounded-full hover:bg-purple-950 ${
+            currentPage === totalPage && "hidden"
+          }`}
+        >
+          {/* {!!!! need to chang} */}
+          Next
+          {/* {!!!! need to chang} */}
+        </button>
+      </div>
+      <div className="pb-20">
+        <Footer />
+      </div>
+    </main>
   );
 }
