@@ -49,7 +49,7 @@ export default function Card({
           transition-all duration-500 opacity-0 group-hover:opacity-100 "
           >
             {title}
-            <p className="flex justify-center items-center text-base font-bold text-[#FFAD49] gap-2 ">
+            <p className="flex justify-center items-center text-sm font-bold text-[#FFAD49] gap-2 ">
               <CiStar size={20} />
               {vote_average.toFixed(1)}/10
             </p>
