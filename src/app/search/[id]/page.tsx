@@ -5,8 +5,41 @@ import Footer from "@/components/Footer";
 import Loading from "@/components/Loading";
 import { BASE_URL } from "@/utils/Const";
 import axios from "axios";
+import { motion } from "framer-motion";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5, // Duration of 0.5 seconds
+      delay: index * 0.1, // Delay increases with index for staggered effect
+    },
+  }),
+};
+
+const buttonVariants = {
+  hover: {
+    scale: 1.1,
+    transition: {
+      yoyo: Infinity, // makes it animate back and forth
+    },
+  },
+};
 
 export default function Search() {
   const [title, setTitle] = useState("");
@@ -62,54 +95,72 @@ export default function Search() {
     router.push(`/search/${search}?${page}`);
   };
   return (
-    <main
-      className="bg-secondary  max-h-[calc(100vh-77px)] min-h-[calc(100vh-77px)] p-6 
+    <motion.div variants={containerVariants} initial="hidden" animate="visible">
+      <main
+        className="bg-secondary  max-h-[calc(100vh-77px)] min-h-[calc(100vh-77px)] p-6 
     overflow-y-scroll overflow-x-hidden scrollbar-thin scrollbar-thumb-purple-900 
     scrollbar-track-primary rounded-xl relative"
-      ref={mainRef}
-    >
-      <h1 className="text-[24px] tracking-[2px]">{title}</h1>
-      {movies.length === 0 && <Loading />}
-
-      {/* {MovieCard} */}
-      <div className=" grid gap-5 moviesGrid place-items-center mt-8">
-        {movies.map((movie: movie) => (
-          <Card
-            key={movie.id}
-            img={movie.poster_path}
-            id={movie.id}
-            title={movie.title}
-            release_date={movie.release_date}
-          />
-        ))}
-      </div>
-      {/* {MovieCard} */}
-
-      <div className=" flex justify-center gap-16 py-16 pt-16">
-        <button
-          onClick={() => handlePageChange("prev")}
-          className={`bg-purple-800 p-2 px-8 hover:bg-purple-950 ${
-            currentPage === 1 && "hidden"
-          }`}
+        ref={mainRef}
+      >
+        <motion.h1
+          className="text-[24px] tracking-[2px] capitalize"
+          variants={itemVariants}
         >
-          {/* {!!!! need to chang} */}
-          Prev
-          {/* {!!!! need to chang} */}
-        </button>
-        <button
-          onClick={() => handlePageChange("next")}
-          className={`bg-purple-800 p-2 px-8 rounded-full hover:bg-purple-950 ${
-            currentPage === totalPage && "hidden"
-          }`}
+          {title}
+        </motion.h1>
+        {movies.length === 0 && <Loading />}
+
+        {/* {MovieCard} */}
+        <motion.div
+          className=" grid gap-5 moviesGrid place-items-center mt-8"
+          variants={containerVariants}
         >
-          {/* {!!!! need to chang} */}
-          Next
-          {/* {!!!! need to chang} */}
-        </button>
-      </div>
-      <div className="pb-20">
-        <Footer />
-      </div>
-    </main>
+          {movies.map((movie: movie, index) => (
+            <motion.div
+              key={movie.id}
+              custom={index} // Pass index to the motion.div
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <Card
+                img={movie.poster_path}
+                id={movie.id}
+                title={movie.title}
+                release_date={movie.release_date}
+                vote_average={movie.vote_average}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+        {/* {MovieCard} */}
+
+        <div className=" flex justify-center gap-16 py-16 pt-16">
+          <motion.button
+            onClick={() => handlePageChange("prev")}
+            className={`bg-purple-800 p-2 px-8 rounded-full hover:bg-purple-950 ${
+              currentPage === 1 && "hidden"
+            }`}
+            variants={buttonVariants}
+            whileHover="hover"
+          >
+            <FaArrowLeft />
+          </motion.button>
+          <motion.button
+            onClick={() => handlePageChange("next")}
+            className={`bg-purple-800 p-2 px-8 rounded-full hover:bg-purple-950 ${
+              currentPage === totalPage && "hidden"
+            }`}
+            variants={buttonVariants}
+            whileHover="hover"
+          >
+            <FaArrowRight />
+          </motion.button>
+        </div>
+        <div className="pb-20">
+          <Footer />
+        </div>
+      </main>
+    </motion.div>
   );
 }

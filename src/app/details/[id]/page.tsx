@@ -95,7 +95,16 @@ export default function DetailsCard() {
   useEffect(() => {
     axios
       .get(
-        `${BASE_URL}/movie/${params.id}?api_key=${process.env.NEXT_PUBLIC_ACCESS_TOKEN}&append_to_response=videos`
+        `${BASE_URL}/movie/${params.id}?append_to_response=videos`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
+          },
+          params: {
+            language: "en-US",
+          },
+        }
       )
       .then((res) => {
         console.log(res.data);

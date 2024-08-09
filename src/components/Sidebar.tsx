@@ -44,15 +44,6 @@ export default function Sidebar() {
     setSelectedGenre(params.id.toString());
   }, [params.id]);
 
-  // useEffect(() => {
-  //   if (searchParams.get("genre")) {
-  //     setSelectedGenre(searchParams.get("genre") as string);
-  //     return;
-  //   }
-  //   if (params && params.id) {
-  //     setSelectedGenre(params.id);
-  //   }
-  // }, [searchParams, params]);
   return (
     <div
       className="bg-primary px-10 max-h-[calc(100vh-77px)] pb-6 
