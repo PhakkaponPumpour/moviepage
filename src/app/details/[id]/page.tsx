@@ -1,5 +1,3 @@
-// DONT FORGET TO MAKE IT BETTER !!!!
-
 "use client";
 import Genres from "@/components/Genre";
 import Loading from "@/components/Loading";
@@ -13,7 +11,7 @@ import { BsPlayFill } from "react-icons/bs";
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
 import { CiStar } from "react-icons/ci";
-
+import Image from "next/image";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 
 export interface Root {
@@ -110,7 +108,7 @@ export default function DetailsCard() {
         }
       )
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setMovie(res.data);
       });
   }, [params.id]);
@@ -147,10 +145,13 @@ export default function DetailsCard() {
       <div className="flex flex-col md:flex-row justify-center items-center pt-4 md:pt-0">
         <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] max-w-full md:max-w-[1200px] gap-6 md:gap-12">
           <div className="flex justify-center">
-            <img
+            <Image
               src={`${BASE_IMG_URL}${movie?.poster_path}`}
-              alt={movie?.title}
-              className="w-full max-w-[300px] md:max-w-[300px] object-cover"
+              alt={movie?.title || "Movie Poster"}
+              layout="responsive"
+              width={300}
+              height={450}
+              className="object-cover"
             />
           </div>
           <div className="space-y-4 md:space-y-6 text-textColor">

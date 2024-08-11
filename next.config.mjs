@@ -9,6 +9,9 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    domains: ["image.tmdb.org"], // Add this line to allow images from image.tmdb.org
+  },
 };
 
 export default nextConfig;
