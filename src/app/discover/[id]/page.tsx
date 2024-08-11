@@ -108,7 +108,7 @@ export default function Page() {
         // console.log(response);
       })
       .catch((error) => console.log(error));
-  }, [params.id, searchParams.get("page")]);
+  }, [params.id, searchParams]);
 
   const handlePageChange = (button: string) => {
     let page = "";
