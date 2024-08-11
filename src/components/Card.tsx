@@ -12,20 +12,10 @@ interface propsType {
   vote_average: number;
 }
 
-export default function Card({
-  img,
-  id,
-  title,
-  release_date,
-  vote_average,
-}: propsType) {
+export default function Card({ img, id, title, vote_average }: propsType) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
-  const handleClick = () => {
-    alert(
-      "I have a little problem with API authorization, but I'm fixing it. ♥"
-    );
-  };
+
   return (
     <div className=" group bg-primary h-[450px] md:h-[300px] w-[100%]">
       {!loaded && !error && <CardPoster />}
@@ -34,7 +24,7 @@ export default function Card({
       <Link
         className={`${!loaded && error && "hidden"}`}
         href={`/details/${id}`}
-        // onClick={handleClick}
+        
       >
         <div className=" relative ">
           <img
