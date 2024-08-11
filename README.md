@@ -11,13 +11,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 
-```
-!!!! I have a small issue with the DetailCard in /app/detail/[id].
-The problem is that the "url" parameter is valid, but the upstream response is invalid.
-I am still working on it.
-```
-
-
 
 ## Getting Started on your localhost
 
