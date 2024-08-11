@@ -50,7 +50,7 @@ export interface movie {
   vote_average: number;
 }
 
-export default function page() {
+export default function Page() {
   const [title, setTitle] = useState("");
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);

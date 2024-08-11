@@ -164,7 +164,7 @@ export default function MoveNavbar({
                 key={genre.id}
                 href={`/genres/${
                   genre.id
-                }?genre=${genre.name.toLocaleLowerCase()}`}
+                }?genres=${genre.name.toLocaleLowerCase()}`}
                 className=" w-fit"
                 onClick={() => setIsOpen(false)}
               >

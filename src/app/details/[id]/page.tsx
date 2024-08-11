@@ -1,11 +1,12 @@
 "use client";
+
 import Genres from "@/components/Genre";
 import Loading from "@/components/Loading";
 import { BASE_URL } from "@/utils/Const";
 import { BASE_IMG_URL } from "@/utils/Const";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { BsPlayFill } from "react-icons/bs";
 import dynamic from "next/dynamic";
@@ -121,6 +122,7 @@ export default function DetailsCard() {
     }`;
     setTrailer(trailerURL);
   }, [movie]);
+
   const startPlayer = () => {
     mainRef?.current?.scrollTo({
       top: 0,
@@ -145,10 +147,9 @@ export default function DetailsCard() {
       <div className="flex flex-col md:flex-row justify-center items-center pt-4 md:pt-0">
         <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] max-w-full md:max-w-[1200px] gap-6 md:gap-12">
           <div className="flex justify-center">
-            <Image
+            <img
               src={`${BASE_IMG_URL}${movie?.poster_path}`}
-              alt={movie?.title || "Movie Poster"}
-              layout="responsive"
+              alt="Movie Poster"
               width={300}
               height={450}
               className="object-cover"
@@ -217,11 +218,7 @@ export default function DetailsCard() {
             url={trailer}
             width="100%"
             height="100%"
-            style={{
-              position: "absolute",
-              top: "0",
-              left: "0",
-            }}
+            style={{ position: "absolute", top: "0", left: "0" }}
             controls={true}
             playing={showDetails}
           />
