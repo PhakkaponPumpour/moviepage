@@ -52,7 +52,8 @@ export default function MoveNavbar({
       return;
     }
     setSelectedGenre(params.id.toString());
-  }, [searchParams.get("genre"), params.id]);
+  }, [searchParams, params.id]);
+  // [searchParams.get("genre"), params.id
 
   return (
     <>

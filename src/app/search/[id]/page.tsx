@@ -82,8 +82,8 @@ export default function Search() {
         // console.log(response);
       })
       .catch((error) => console.log(error));
-  }, [params.id, searchParams.get("page")]);
-
+  }, [params.id, searchParams]);
+  // [params.id, searchParams.get("page")]);
   const handlePageChange = (button: string) => {
     let page = "";
     if (button === "prev") {

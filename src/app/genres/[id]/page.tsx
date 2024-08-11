@@ -82,8 +82,8 @@ export default function Genres() {
         // console.log(response);
       })
       .catch((error) => console.log(error));
-  }, [params.id, searchParams.get("page")]);
-
+  }, [params.id, searchParams]);
+  // old [params.id, searchParams.get("page")]);
   const handlePageChange = (button: string) => {
     let page = "";
     if (button === "prev") {

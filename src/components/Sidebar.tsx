@@ -42,7 +42,7 @@ export default function Sidebar() {
       return;
     }
     setSelectedGenre(params.id.toString());
-  }, [params.id]);
+  }, [params.id, searchParams]);
 
   return (
     <div
