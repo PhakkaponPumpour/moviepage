@@ -1,5 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+![สกรีนช็อต 2024-08-11 203823](https://github.com/user-attachments/assets/92532d8d-2988-45af-acff-0aa66006b106)
 
 ## Deploy on Vercel
 
